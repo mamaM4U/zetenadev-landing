@@ -2,10 +2,9 @@
 
 import React, { forwardRef, useRef } from "react";
 
-import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { PiFigmaLogo } from "react-icons/pi";
 
 const Circle = forwardRef<
   HTMLDivElement,
@@ -75,7 +74,7 @@ export function AnimatedBeamMultipleOutputDemo({
         <div className="flex flex-col justify-center">
           <Circle ref={div6Ref} className="size-16 bg-white">
           <Image
-          src={'/logo/logo.webp'}
+          src={'/logo/logo.png'}
           height={1000}
           width={1000}
           alt="logo"

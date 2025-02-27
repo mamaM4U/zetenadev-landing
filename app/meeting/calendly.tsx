@@ -11,6 +11,7 @@ const Calendly =  () => {
       styles={{ height: "1000px" }}
       url="https://calendly.com/birdsoftware/meeting" />
     </div> );
+    // ToDo: Add Calendly Link for Zetenadev
 }
  
 export default Calendly;

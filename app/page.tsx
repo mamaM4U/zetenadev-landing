@@ -5,17 +5,17 @@ import { AnimatedShinyTextDemo } from "@/components/demos/animated-shiny-text-de
 import BoxRevealDemo from "@/components/demos/box-reveal-demo";
 import { CoverDemo } from "@/components/demos/cover-demo";
 import { ScrollBasedVelocityDemo } from "@/components/demos/scroll-based-velocity-demo";
+import { ShootingStarsAndStarsBackgroundDemo } from "@/components/demos/shooting-stars-demo";
 import { WordPullUpDemo } from "@/components/demos/word-pull-up-demo";
 import BoxReveal from "@/components/magicui/box-reveal";
 import NumberTicker from "@/components/magicui/number-ticker";
 import { InfiniteMovingLogos } from "@/components/ui/infinite-moving-logos";
+import LetsMakeThingsHappenSection from "@/components/ui/lets-make-things-happen";
+import { IconStarFilled } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { PiCheckBold } from "react-icons/pi";
-import { Link as ScrollLink, Element } from "react-scroll";
-import { IconStarFilled } from "@tabler/icons-react";
-import { ShootingStarsAndStarsBackgroundDemo } from "@/components/demos/shooting-stars-demo";
-import LetsMakeThingsHappenSection from "@/components/ui/lets-make-things-happen";
+import { Element, Link as ScrollLink } from "react-scroll";
 
 
 const services = [
@@ -74,7 +74,7 @@ export default function Home() {
       >
         <Link href={"/"}>
           <Image
-            src={"/logo/logo.webp"}
+            src={"/logo/logo.png"}
             alt="Logo"
             width={1000}
             height={1000}
@@ -115,11 +115,12 @@ export default function Home() {
         </div>
 
         <div className="flex items-center gap-x-4">
-          <a href="tel:519400200" className="hidden lg:flex">
+          {/* Link to call */}
+          {/* <a href="tel:519400200" className="hidden lg:flex">
             <button className="px-4 py-2 rounded-md flex items-center gap-x-3">
               (519)-400-200
             </button>
-          </a>
+          </a> */}
 
           <Link
             href={"/meeting"}
@@ -217,7 +218,7 @@ export default function Home() {
             <BoxReveal boxColor={"#3b82f6"} duration={0.5}>
               <p className="md:text-xl font-semibold flex gap-x-2 md:gap-x-4 items-center">
                 <PiCheckBold className="text-xl text-blue-500" />
-                Marketing
+                Maintaining
               </p>
             </BoxReveal>
             <BoxReveal boxColor={"#3b82f6"} duration={0.5}>
@@ -237,20 +238,20 @@ export default function Home() {
               <div className="flex my-6 gap-x-5 w-full">
                 <div>
                   <h1 className="text-blue-500 text-3xl md:text-5xl">
-                    <NumberTicker value={1000} /> +
+                    <NumberTicker value={100} /> %
                     <p className="text-gray-500 text-sm md:text-md">
-                      Happy Clients
+                      Projects Completed
                     </p>
                   </h1>
                 </div>
 
                 <div className="w-px bg-gray-300 self-stretch"></div>
 
-                <div className="flex-1 min-w-0">
-                  <h1 className="text-blue-500 text-3xl md:text-5xl whitespace-nowrap overflow-hidden">
-                    <NumberTicker value={100} /> +
+                <div>
+                  <h1 className="text-blue-500 text-3xl md:text-5xl">
+                    <NumberTicker value={100} /> %
                     <p className="text-gray-500 text-sm md:text-md">
-                      Projects Completed
+                      Clients Are Happy
                     </p>
                   </h1>
                 </div>
@@ -263,11 +264,11 @@ export default function Home() {
                 direction="left"
                 items={[
                   {
-                    logo: "/logo/logo.webp",
+                    logo: "/logo/logo.png",
                     name: "Logo",
                   },
                   {
-                    logo: "/logo/logo.webp",
+                    logo: "/logo/logo.png",
                     name: "Logo",
                   },
                 ]}
@@ -283,7 +284,7 @@ export default function Home() {
           <WordPullUpDemo />
         </h1>
         <p className="md:text-center py-4 md:w-1/2 mx-auto text-xl md:text-2xl text-gray-500">
-        All of our services are designed to help your business stand out 
+        All of our services are designed to bring your ideas to life 
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
@@ -359,7 +360,7 @@ export default function Home() {
       <section>
         <main className="md:flex items-center justify-center space-y-6 md:space-y-0 md:gap-x-20 xl:w-4/5 2xl:w-[68%] mx-auto px-6 md:px-0">
           <Image
-            src={"/logo/logo.webp"}
+            src={"/logo/logo.png"}
             width={10000}
             height={10000}
             className=" md:w-1/3 rounded-md"
@@ -367,7 +368,7 @@ export default function Home() {
           />
           <div className="flex flex-col gap-y-5 md:w-1/2">
             <h1 className="text-lg md:text-2xl ">
-              &quot;We&apos;ve been working with Bird for over 2 years and
+              &quot;We&apos;ve been working with Zetena for over 2 years and
               they&apos;ve been amazing to work with. They&apos;ve helped us
               grow our business and we couldn&apos;t be happier with the
               results. &quot;
@@ -381,8 +382,8 @@ export default function Home() {
             </div>
 
             <span className="text-xl font-medium">
-              Jordan, Brisson <br />
-              CEO, Atlas Massage
+              Mr. A, Depok <br />
+              Founder, An Home Service Company
             </span>
           </div>
         </main>
@@ -400,7 +401,7 @@ export default function Home() {
         <div className="flex flex-col  justify-between gap-y-3 xl:w-4/5 2xl:w-[68%] mx-auto">
           <h1 className="text-3xl md:text-5xl font-medium ">
             <Image
-              src={"/logo/logo.webp"}
+              src={"/logo/logo.png"}
               width={10000}
               height={10000}
               className="w-40"
@@ -409,12 +410,12 @@ export default function Home() {
           </h1>
           <p className="text-left  text-xl  text-gray-500">519-200-5000</p>
           <p className="text-left  text-xl  text-gray-500">
-            admin@birdsoftware.ca
+            admin@zetenadev.com
           </p>
         </div>
 
         <div className="flex md:justify-center gap-x-4 mt-10">
-          © 2025 Bird. All Rights Reserved.
+          © 2025 Zetenadev. All Rights Reserved.
           <Link href="/" className="text-blue-500">
             Privacy Policy
           </Link>
