@@ -53,7 +53,7 @@ const services = [
     icon: "/images/s_2.png",
     title: "Digital Product Improvement",
     description:
-      "Don't waste money on ineffective digital product. Our PDI services help you get the best results",
+      "Don't waste money on ineffective digital product. Our DPI services help you get the best results",
   },
 ];
 
@@ -107,7 +107,7 @@ export default function Home() {
             >
               Guarentees
             </ScrollLink>
-            
+
             <Link href={"/showcase"} className="hover:text-blue-500">
               Showcase
             </Link>
