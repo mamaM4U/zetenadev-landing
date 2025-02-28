@@ -42,14 +42,7 @@ xl:w-4/5
 
       <div className="absolute right-1/2 translate-x-1/2 transform">
         <div className="hidden md:flex gap-x-10 2xl:gap-x-10 items-center text-gray-700 font-medium text-lg ">
-          <Link
-            href="/showcase"
-            className="
-          hover:text-blue-500
-          "
-          >
-            Showcase
-          </Link>
+
              <Link href="/" className="hover:text-blue-500">
             Services
           </Link>
@@ -59,7 +52,14 @@ xl:w-4/5
           <Link href="/" className="hover:text-blue-500">
             Guarentees
           </Link>
-  
+          <Link
+            href="/showcase"
+            className="
+          hover:text-blue-500
+          "
+          >
+            Showcase
+          </Link>
         </div>
       </div>
 
