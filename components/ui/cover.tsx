@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useId, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useRef } from "react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { SparklesCore } from "./sparkles";
 
 export const Cover = ({
@@ -38,7 +37,7 @@ export const Cover = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       ref={ref}
-      className="relative hover:bg-neutral-900  group/cover inline-block dark:bg-neutral-900 bg-neutral-100 px-2 py-2  transition duration-200 rounded-sm"
+      className="relative hover:bg-neutral-900  group/cover inline-block dark:bg-neutral-900 bg-neutral-100 px-2 py-2 my-2  transition duration-200 rounded-sm"
     >
       <AnimatePresence>
         {hovered && (
