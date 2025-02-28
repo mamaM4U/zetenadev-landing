@@ -9,9 +9,8 @@ const Calendly =  () => {
     <div className="w-full ">
       <InlineWidget
       styles={{ height: "1000px" }}
-      url="https://calendly.com/birdsoftware/meeting" />
+      url="https://calendly.com/zetenadev/30min" />
     </div> );
-    // ToDo: Add Calendly Link for Zetenadev
 }
  
 export default Calendly;
