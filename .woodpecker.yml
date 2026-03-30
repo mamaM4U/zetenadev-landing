@@ -27,6 +27,7 @@ steps:
     image: docker:cli
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /root/docker-stack/projects/zetenadev/landing:/root/docker-stack/projects/zetenadev/landing
     commands:
       - docker build -t zetenadev-landing:latest .
       - docker compose -f /root/docker-stack/projects/zetenadev/landing/docker-compose.yml up -d --pull never
