@@ -31,6 +31,7 @@ steps:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - docker build -t zetenadev-landing:latest .
+      - docker rm -f zetenadev-landing || true
       - docker compose -f deploy/docker-compose.uat.yml up -d --pull never
       - docker image prune -f
     when:
@@ -50,7 +51,8 @@ steps:
         from_secret: NOVA_SSH_USER
       key:
         from_secret: NOVA_SSH_KEY
-      port: 22
+      port:
+        from_secret: NOVA_SSH_PORT
       target: /root/docker-stack/projects/zetenadev/landing/public
       source: out/*
       strip_components: 1
@@ -67,7 +69,8 @@ steps:
         from_secret: NOVA_SSH_USER
       key:
         from_secret: NOVA_SSH_KEY
-      port: 22
+      port:
+        from_secret: NOVA_SSH_PORT
       script:
         - docker restart zetenadev-landing
     when:
