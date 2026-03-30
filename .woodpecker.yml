@@ -2,8 +2,7 @@
 # Pola: BCD (Build-Containerize-Deploy)
 # Trigger: push ke branch main → build di VPS via Woodpecker agent
 #
-# ⚠️  Docker socket tersedia karena WOODPECKER_AGENT_VOLUMES di agent config.
-#     TIDAK perlu volumes: di sini, TIDAK perlu repo di-set Trusted.
+# Repo harus di-set Trusted (Volumes) di Woodpecker Settings oleh admin
 
 when:
   event: push
@@ -22,19 +21,13 @@ steps:
 
   # ─────────────────────────────────────────
   # Step 2: Containerize + Deploy
-  # Docker socket sudah di-mount via WOODPECKER_AGENT_VOLUMES di VPS
+  # Akses Docker host socket — repo harus Trusted (Volumes)
   # ─────────────────────────────────────────
   - name: deploy
     image: docker:cli
-    # Uncomment jika repo sudah di-set Trusted di Woodpecker admin panel:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
-      # Build Docker image dari hasil ./out/
       - docker build -t zetenadev-landing:latest .
-
-      # Restart service via compose di VPS
       - docker compose -f /root/docker-stack/projects/zetenadev/landing/docker-compose.yml up -d --pull never
-
-      # Bersihkan image lama
       - docker image prune -f
