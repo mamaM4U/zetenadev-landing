@@ -26,6 +26,9 @@ steps:
   # ─────────────────────────────────────────
   - name: deploy
     image: docker:cli
+    # Uncomment jika repo sudah di-set Trusted di Woodpecker admin panel:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     commands:
       # Build Docker image dari hasil ./out/
       - docker build -t zetenadev-landing:latest .
