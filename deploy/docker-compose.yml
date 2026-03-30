@@ -1,0 +1,18 @@
+# docker-compose.yml
+# Lokasi di VPS: ~/docker-stack/projects/zetenadev/landing/docker-compose.yml
+# ⚠️  File ini TIDAK di-manage oleh CI — dibuat manual sekali saat setup awal
+
+services:
+  landing:
+    image: zetenadev-landing:latest
+    container_name: zetenadev-landing
+    restart: unless-stopped
+    networks:
+      - infra-network
+    labels:
+      caddy: zetena.my.id
+      caddy.reverse_proxy: "{{upstreams 80}}"
+
+networks:
+  infra-network:
+    external: true
