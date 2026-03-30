@@ -1,7 +1,5 @@
 "use client";
 
-
-import Calendly from "./calendly";
 import ShowcaseNavbar from "@/components/showcase-navbar";
 import { PiCheckCircle } from "react-icons/pi";
 import { motion } from "framer-motion";
@@ -70,9 +68,6 @@ const Meeting = () => {
               ))}
         </div>
 
-    <div className="md:w-1/2">
-      <Calendly />
-      </div>
       </div>
     </div>
   );
