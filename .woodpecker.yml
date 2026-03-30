@@ -1,6 +1,9 @@
 # Woodpecker CI Pipeline — zetenadev/landing
 # Pola: BCD (Build-Containerize-Deploy)
 # Trigger: push ke branch main → build di VPS via Woodpecker agent
+#
+# ⚠️  Docker socket tersedia karena WOODPECKER_AGENT_VOLUMES di agent config.
+#     TIDAK perlu volumes: di sini, TIDAK perlu repo di-set Trusted.
 
 when:
   event: push
@@ -19,12 +22,10 @@ steps:
 
   # ─────────────────────────────────────────
   # Step 2: Containerize + Deploy
-  # Akses Docker host socket (agent di VPS yang sama)
+  # Docker socket sudah di-mount via WOODPECKER_AGENT_VOLUMES di VPS
   # ─────────────────────────────────────────
   - name: deploy
     image: docker:cli
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
     commands:
       # Build Docker image dari hasil ./out/
       - docker build -t zetenadev-landing:latest .
