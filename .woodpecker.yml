@@ -1,17 +1,19 @@
 # Woodpecker CI Pipeline — zetenadev/landing
-# Pola: BCD (Build-Containerize-Deploy)
-# Trigger: push ke branch main → build di VPS via Woodpecker agent
-#
-# Repo harus di-set Trusted (Volumes) di Woodpecker Settings oleh admin
+# Mendukung 2 Environments:
+# - UAT (zetena.my.id) di branch release-candidate (Void CI runner local socket)
+# - Prod (zetenadev.com) di branch main (Nova via SCP + SSH remote deploy)
 
 when:
   event: push
-  branch: main
+  branch:
+    - main
+    - release-candidate
 
 steps:
   # ─────────────────────────────────────────
   # Step 1: Build Next.js Static Export
   # Output: ./out/
+  # Dijalankan untuk semua branch
   # ─────────────────────────────────────────
   - name: build
     image: node:20-alpine
@@ -20,15 +22,53 @@ steps:
       - npm run build
 
   # ─────────────────────────────────────────
-  # Step 2: Containerize + Deploy
-  # Akses Docker host socket — repo harus Trusted (Volumes)
+  # UAT DEPLOY (Void Lokal / branch: release-candidate)
+  # Akses Docker host socket via Trusted Volumes
   # ─────────────────────────────────────────
-  - name: deploy
+  - name: deploy-uat
     image: docker:cli
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/docker-stack/projects/zetenadev/landing:/root/docker-stack/projects/zetenadev/landing
     commands:
       - docker build -t zetenadev-landing:latest .
-      - docker compose -f /root/docker-stack/projects/zetenadev/landing/docker-compose.yml up -d --pull never
+      - docker compose -f deploy/docker-compose.uat.yml up -d --pull never
       - docker image prune -f
+    when:
+      branch: release-candidate
+
+  # ─────────────────────────────────────────
+  # PROD DEPLOY (Nova Remote / branch: main)
+  # Menggunakan SSH Protocol
+  # ─────────────────────────────────────────
+  # Upload static files via SCP
+  - name: deploy-prod-upload
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: NOVA_SSH_HOST
+      username:
+        from_secret: NOVA_SSH_USER
+      key:
+        from_secret: NOVA_SSH_KEY
+      port: 22
+      target: /root/docker-stack/projects/zetenadev/landing/public
+      source: out/*
+      strip_components: 1
+    when:
+      branch: main
+
+  # Restart target container via SSH
+  - name: deploy-prod-restart
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: NOVA_SSH_HOST
+      username:
+        from_secret: NOVA_SSH_USER
+      key:
+        from_secret: NOVA_SSH_KEY
+      port: 22
+      script:
+        - docker restart zetenadev-landing
+    when:
+      branch: main
