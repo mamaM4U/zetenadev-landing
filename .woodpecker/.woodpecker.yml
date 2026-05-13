@@ -1,0 +1,42 @@
+steps:
+  build-and-push:
+    image: woodpeckerci/plugin-docker-buildx
+    settings:
+      registry: registry.zetena.my.id
+      repo: registry.zetena.my.id/zetenadev-landing
+      tags: latest
+      dockerfile: Dockerfile.deploy
+      username:
+        from_secret: zot_username
+      password:
+        from_secret: zot_password
+
+  deploy-uat-void:
+    image: appleboy/drone-ssh
+    when:
+      branch: [uat, main]
+    settings:
+      host: localhost
+      user: ubuntu
+      script:
+        - mkdir -p ~/docker-stack/projects/zetenadev-landing/app
+        - cd ~/docker-stack/projects/zetenadev-landing/app
+        - docker pull registry.zetena.my.id/zetenadev-landing:latest
+        - test -f docker-compose.deploy.yml || echo "docker-compose.deploy.yml must exist in deployment directory"
+        - docker compose -f docker-compose.deploy.yml up -d
+        - docker image prune -f
+
+  deploy-prod-prime:
+    image: appleboy/drone-ssh
+    when:
+      branch: [prod]
+    settings:
+      host: zetena-prime.zetenadev.com
+      user: ubuntu
+      script:
+        - mkdir -p ~/docker-stack/projects/zetenadev-landing/app
+        - cd ~/docker-stack/projects/zetenadev-landing/app
+        - docker pull registry.zetena.my.id/zetenadev-landing:latest
+        - test -f docker-compose.deploy.yml || echo "docker-compose.deploy.yml must exist in deployment directory"
+        - docker compose -f docker-compose.deploy.yml up -d
+        - docker image prune -f

@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { copy, services, industries, works, process, whatsappHref, type Locale } from '../content';
+
+interface Props { locale?: Locale }
+const locale: Locale = Astro.props.locale ?? 'en';
+const c = copy[locale];
+const title = locale === 'en'
+  ? 'ZetenaDev — Web, Mobile App & Digital System Development'
+  : 'ZetenaDev — Pengembangan Website, Mobile App & Sistem Digital';
+const description = locale === 'en'
+  ? 'ZetenaDev builds sharp websites, mobile apps, and digital systems for businesses, schools, organizations, sports clubs, and service teams.'
+  : 'ZetenaDev membangun website, mobile app, dan sistem digital untuk UMKM, sekolah, organisasi, club olahraga, dan bisnis jasa.';
+const canonical = locale === 'en' ? 'https://zetenadev.com/' : 'https://zetenadev.com/id/';
+---
+<BaseLayout title={title} description={description} locale={locale} canonical={canonical}>
+  <main>
+    <section class="hero section-pad">
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span>{c.eyebrow}</p>
+          <h1>{c.heroTitle}</h1>
+          <p class="hero-body">{c.heroBody}</p>
+          <div class="hero-actions">
+            <a href={whatsappHref} target="_blank" rel="noreferrer" class="btn btn-primary">{c.primaryCta}</a>
+            <a href="#work" class="btn btn-ghost">{c.secondaryCta}</a>
+          </div>
+          <div class="proof-row">
+            {c.proof.map((item) => <span>{item}</span>)}
+          </div>
+        </div>
+        <div class="hero-card" aria-label="ZetenaDev capability console">
+          <div class="terminal-bar"><i></i><i></i><i></i><span>zetenadev.command</span></div>
+          <div class="signal-card main-signal">
+            <p>MODE</p>
+            <strong>Void / Prime</strong>
+          </div>
+          <div class="signal-grid">
+            <div><span>Web</span><b>Presence</b></div>
+            <div><span>Mobile</span><b>Apps</b></div>
+            <div><span>Ops</span><b>Systems</b></div>
+            <div><span>Brand</span><b>Direction</b></div>
+          </div>
+          <img src="/images/business.webp" alt="Digital business illustration" loading="eager" />
+        </div>
+      </div>
+    </section>
+
+    <section class="trust section-pad soft-section">
+      <div class="container split">
+        <div>
+          <p class="section-kicker">ZETENADEV</p>
+          <h2>{c.trustTitle}</h2>
+        </div>
+        <p>{c.trustBody}</p>
+      </div>
+    </section>
+
+    <section id="services" class="section-pad">
+      <div class="container section-head">
+        <p class="section-kicker">SERVICES</p>
+        <h2>{c.servicesTitle}</h2>
+        <p>{c.servicesBody}</p>
+      </div>
+      <div class="container card-grid services-grid">
+        {services[locale].map((service) => (
+          <article class="service-card">
+            <img src={service.icon} alt="" loading="lazy" />
+            <h3>{service.title}</h3>
+            <p>{service.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-pad industries-section">
+      <div class="container section-head compact">
+        <p class="section-kicker">FIELDS</p>
+        <h2>{c.industriesTitle}</h2>
+      </div>
+      <div class="container industries">
+        {industries[locale].map((item) => <span>{item}</span>)}
+      </div>
+    </section>
+
+    <section id="work" class="section-pad">
+      <div class="container section-head">
+        <p class="section-kicker">WORK</p>
+        <h2>{c.workTitle}</h2>
+        <p>{c.workBody}</p>
+      </div>
+      <div class="container card-grid work-grid">
+        {works[locale].map((work) => (
+          <article class="work-card">
+            <p>{work.type}</p>
+            <h3>{work.name}</h3>
+            <span>{work.body}</span>
+            {work.href !== '#' && <a href={work.href} target="_blank" rel="noreferrer">Visit ↗</a>}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="process" class="section-pad process-section">
+      <div class="container section-head">
+        <p class="section-kicker">PROCESS</p>
+        <h2>{c.processTitle}</h2>
+      </div>
+      <div class="container process-list">
+        {process[locale].map(([num, title, body]) => (
+          <article>
+            <b>{num}</b>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="quality" class="section-pad quality-section">
+      <div class="container quality-card">
+        <div>
+          <p class="section-kicker">TECHNICAL SEO</p>
+          <h2>{c.qualityTitle}</h2>
+        </div>
+        <p>{c.qualityBody}</p>
+      </div>
+    </section>
+
+    <section id="contact" class="section-pad final-cta">
+      <div class="container final-card">
+        <h2>{c.finalTitle}</h2>
+        <p>{c.finalBody}</p>
+        <a href={whatsappHref} target="_blank" rel="noreferrer" class="btn btn-primary">{c.primaryCta}</a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <img src="/logo/logo.png" alt="ZetenaDev" />
+      <p>{c.footer}</p>
+      <a href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a>
+    </div>
+  </footer>
+</BaseLayout>

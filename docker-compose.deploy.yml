@@ -1,0 +1,13 @@
+name: zetenadev-landing
+
+services:
+  landing:
+    image: registry.zetena.my.id/zetenadev-landing:latest
+    container_name: zetenadev-landing
+    restart: unless-stopped
+    networks:
+      - zetena-network
+
+networks:
+  zetena-network:
+    external: true

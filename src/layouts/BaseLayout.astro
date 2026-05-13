@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle';
+import { nav, type Locale } from '../content';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  canonical: string;
+}
+
+const { title, description, locale, canonical } = Astro.props;
+const n = nav[locale];
+---
+<!doctype html>
+<html lang={locale === 'en' ? 'en' : 'id'} data-theme="void">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href="https://zetenadev.com/" />
+    <link rel="alternate" hreflang="id" href="https://zetenadev.com/id/" />
+    <link rel="alternate" hreflang="x-default" href="https://zetenadev.com/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#05060f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://zetenadev.com/logo/logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.ico" />
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem('zetenadev-theme') || 'void';
+        document.documentElement.dataset.theme = saved;
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="nav-wrap">
+        <nav class="nav-panel" aria-label="Main navigation">
+          <a href={locale === 'en' ? '/' : '/id/'} class="brand" aria-label="ZetenaDev home">
+            <img src="/logo/logo.png" alt="ZetenaDev" class="brand-logo" />
+          </a>
+          <div class="nav-links">
+            <a href="#services">{n.services}</a>
+            <a href="#work">{n.work}</a>
+            <a href="#process">{n.process}</a>
+            <a href="#quality">{n.quality}</a>
+          </div>
+          <div class="nav-actions">
+            <a href={n.langHref} class="lang-switch" aria-label="Switch language">{n.langLabel}</a>
+            <ThemeToggle client:load />
+            <a href="#contact" class="nav-cta">{n.cta}</a>
+          </div>
+        </nav>
+      </header>
+      <slot />
+    </div>
+  </body>
+</html>

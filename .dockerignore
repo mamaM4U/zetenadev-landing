@@ -1,0 +1,10 @@
+node_modules
+.git
+.astro
+dist
+.next
+out
+coverage
+npm-debug.log*
+.env*
+.DS_Store
